@@ -1,0 +1,21 @@
+plugins {
+    id 'scala'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.13'
+    implementation 'com.lihaoyi:requests_2.13:0.8.0'
+    implementation 'com.lihaoyi:ujson_2.13:3.1.2'
+    implementation 'org.postgresql:postgresql:42.7.2'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+
+version = '1.0'
+
+
