@@ -1,0 +1,21 @@
+frontend:
+  image: react-app
+  tag: latest
+  port: 80
+
+backend:
+  image: spring-app
+  tag: latest
+  port: 8081
+
+fastapi:
+  image: fastapi-app
+  tag: latest
+  port: 8000
+
+postgres:
+  image: postgres:15
+  port: 5433
+  user: postgres
+  password: toor
+  db: crawlerdb

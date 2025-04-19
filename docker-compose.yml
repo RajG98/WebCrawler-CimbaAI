@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend/web_crawler_app
+    container_name: react-app
+    ports:
+      - "3000:80"
+
+  backend:
+    build: ./backend/web_crawler_main
+    container_name: spring-app
+    ports:
+      - "8081:8081"
+    depends_on:
+      - fastapi
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5433/crawlerdb
+      DB_USER: postgres
+      DB_PASSWORD: toor
+
+  fastapi:
+    build: ./fastapi/python_fast_api_service
+    container_name: fastapi-app
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:15
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: crawlerdb
+      PGPORT: 5433
+    ports:
+      - "5433:5433"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+
+volumes:
+  pgdata:
