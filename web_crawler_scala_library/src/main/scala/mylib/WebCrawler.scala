@@ -12,7 +12,7 @@ object Main {
   val dbUser = "postgres"
   val dbPassword = "toor"
 
-  def crawl(args: Array[String],urlToCrawl:String): Unit = {
+  def crawl(urlToCrawl:String): String = {
 //    val urlToCrawl = "https://quotes.toscrape.com/"
     val postUrl = "http://localhost:8000/crawl/"
     val payload = ujson.Obj("url" -> urlToCrawl)
@@ -26,14 +26,15 @@ object Main {
       )
 
       val responseBody = response.text()
-      println(s"Received response: $responseBody")
 
       // Save to PostgreSQL
       insertLog(payload.render(), responseBody)
 
+      return (s"Received response: $responseBody")
+
     } catch {
       case ex: Exception =>
-        println(s"Something went wrong: ${ex.getMessage}")
+        return (s"Something went wrong: ${ex.getMessage}")
     }
   }
 
