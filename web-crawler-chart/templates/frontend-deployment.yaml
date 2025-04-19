@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-frontend
+  name: {{ .Release.Name }}-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}-frontend
+      app: {{ .Release.Name }}-frontend
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}-frontend
+        app: {{ .Release.Name }}-frontend
     spec:
       containers:
-        - name: {{ .Chart.Name }}-frontend
-          image: "{{ .Values.image }}:{{ .Values.tag }}"
+        - name: {{ .Release.Name }}-frontend
+          image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
+          imagePullPolicy: Never
           ports:
-            - containerPort: {{ .Values.port }}
+            - containerPort: {{ .Values.frontend.port }}
