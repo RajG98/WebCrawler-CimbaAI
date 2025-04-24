@@ -8,13 +8,13 @@ case class CrawlLog(id: Int, request: String, response: String)
 
 object Main {
   // Change these as needed
-  val dbUrl = "jdbc:postgresql://db:5433/crawlerdb"
+  val dbUrl = "jdbc:postgresql://web-crawler-postgres:5432/crawlerdb"
   val dbUser = "postgres"
   val dbPassword = "toor"
 
   def crawl(urlToCrawl:String): String = {
 //    val urlToCrawl = "https://quotes.toscrape.com/"
-    val postUrl = "http://host.docker.internal:8000/crawl/"
+    val postUrl = "http://web-crawler-fastapi:8000/crawl/"
     val payload = ujson.Obj("url" -> urlToCrawl)
 
     try {
@@ -34,7 +34,10 @@ object Main {
 
     } catch {
       case ex: Exception =>
-        return (s"Something went wrong: ${ex.getMessage}")
+        val sw = new java.io.StringWriter()
+        ex.printStackTrace(new java.io.PrintWriter(sw))
+        val stackTrace = sw.toString
+        s"Something went wrong:\n$stackTrace"
     }
   }
 
@@ -60,8 +63,11 @@ object Main {
 
     } catch {
       case e: Exception =>
-        println("DB error: " + e.getMessage)
-    } finally {
+        val sw = new java.io.StringWriter()
+        e.printStackTrace(new java.io.PrintWriter(sw))
+        println("DB error:\n" + sw.toString)
+    }
+    finally {
       if (rs != null) rs.close()
       if (stmt != null) stmt.close()
       if (conn != null) conn.close()
@@ -89,8 +95,11 @@ object Main {
 
     } catch {
       case e: Exception =>
-        println("DB error: " + e.getMessage)
-    } finally {
+        val sw = new java.io.StringWriter()
+        e.printStackTrace(new java.io.PrintWriter(sw))
+        println("DB error:\n" + sw.toString)
+    }
+    finally {
       if (stmt != null) stmt.close()
       if (conn != null) conn.close()
     }

@@ -7,7 +7,7 @@ const CrawlForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:8081/api/crawl?url=${encodeURIComponent(url)}`, {
+    fetch(`http://web-crawler-backend:8081/api/crawl?url=${encodeURIComponent(url)}`, {
       method: 'POST'
     })
       .then(res => res.text())

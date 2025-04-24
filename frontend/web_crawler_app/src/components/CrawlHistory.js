@@ -5,11 +5,11 @@ const CrawlHistory = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:8081/api/logs')
+    fetch('http://web-crawler-backend:8081/api/logs')
       .then(res => res.json())
       .then(data => {
-          setLogs(data);
-          // console.log('Logs:', data);
+        setLogs(data);
+        // console.log('Logs:logloglg', data);
         setLoading(false);
       })
       .catch(err => {
