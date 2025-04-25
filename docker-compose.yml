@@ -39,9 +39,6 @@ services:
       PGPORT: 5432
     ports:
       - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./init-db:/docker-entrypoint-initdb.d
 
 volumes:
   pgdata:
