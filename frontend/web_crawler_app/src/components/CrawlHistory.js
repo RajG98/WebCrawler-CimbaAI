@@ -5,7 +5,7 @@ const CrawlHistory = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://web-crawler-backend:8081/api/logs')
+    fetch('/api/logs')
       .then(res => res.json())
       .then(data => {
         setLogs(data);

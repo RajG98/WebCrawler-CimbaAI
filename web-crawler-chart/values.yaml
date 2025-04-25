@@ -24,3 +24,14 @@ postgres:
   user: postgres
   password: toor
   db: crawlerdb
+
+ingress:
+  enabled: true
+  host: webcrawler.local
+  frontend:
+    path: /
+    servicePort: 80
+  backend:
+    path: /api
+    servicePort: 8081
+
